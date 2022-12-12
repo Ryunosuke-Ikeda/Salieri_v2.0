@@ -1,0 +1,74 @@
+{% extends "layout.html" %}{% block content %}
+
+<div id="face">
+  <input type="text" id="vuePose" v-model="pose" style="display: none;"></input>
+  <input type="text" id="vueModel" v-model="model" style="display: none;"></input>
+  <input type="text" id="vueMouth" v-model="mouth" style="display: none;"></input>
+  <!-- トップページ -->
+  <transition>
+    <div id="modal" v-show="pageChangeFlag">
+      <div id="modalContents">
+        <p>Automatic Visitor Reception System</p>
+        <img src="../static/img/Salieri.png" alt="Salieri logo">
+      </div>
+      <div class="author">
+        <p>debug flag [[ debugFlg ]]</p>
+        <p>Detection mode</p>
+        <p>Produced by UDN</p>
+      </div>
+    </div>
+  </transition>
+  <!-- 顔認識用カメラ（非表示） -->
+  <div id="container">
+    <video id="video" width="500" height="300" autoplay playsinline="true"></video>
+    <canvas id="faceCanvas" width="500" height="300"></canvas>
+  </div>
+  <!--<button style="color:#fff;display: none;" @click="faceFuncStop()">Camera Stop</button>-->
+  <!-- 対話ページ -->
+  <div id="mainArea">
+    <p style="color:#fff;">debug flag [[ debugFlg ]]</p>
+    <button style="color:#fff;" @click='soundStop()'>mute btn</button>
+    <div id="modelArea" class="topModelArea">
+      <canvas id="canvas"></canvas>
+    </div>
+    <!-- message area -->
+    <div class="dialogueBase messageArea">
+      <p>入力音声: [[ getMessage ]]</p>
+      <div class="innerFlex">
+        <div class="msgFlex">
+          <p>[[ modelMessage ]]</p>
+          <!-- select area -->
+          <div class="picFlex" v-if="choiceArr.length !== 0">
+            <div>
+              <p v-for="count in choiceArr.length">[[ choiceArr[count - 1] ]]
+              </p>
+            </div>
+            <div class="pictureArea" v-if="picFlag">
+              <img :src="picUrl1">
+              <img :src="picUrl2">
+              <img :src="picUrl3">
+              <img :src="picUrl4">
+            </div>
+          </div>
+        </div>
+        <div class="inner">
+          <span class="point" :class="{'-active': nowRecording === true}"></span>
+        </div>
+      </div>
+    </div>
+    <div class="recordingBtnArea">
+      <button v-if="recordingFlag" class="recordingBtn" @click='recording'><span class="material-icons-outlined">keyboard_voice</span></button>
+      <button v-if="!recordingFlag" class="recordingBtn" @click='recording'><span class="material-icons-outlined">mic_off</span></button>
+    </div>
+    <img class="mainAreaLogo" src="../static/img/Salieri.png" alt="Salieri logo">
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+<script src="../static/js/clmtrackr.js"></script>
+<script src="../static/js/model_pca_20_svm.js"></script>
+<script src="../static/webpack/main.js"></script>
+
+{% endblock %}

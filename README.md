@@ -20,6 +20,17 @@ pip install git+https://github.com/openai/CLIP.git
 pip install flask gunicorn openai PyYAML==5.4.1 natsort==8.1.0 pycocotools==2.0.4
 ```
 
+```
+conda create -n Salieri python=3.6
+conda activate Salieri
+pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+pip install git+https://github.com/openai/CLIP.git
+pip install -r requirements.txt
+npm install
+npm run build
+python app.py
+```
+
 ビルド
 node.jsを入れていない場合は以下のサイトからインストール
 https://nodejs.org/ja/download/

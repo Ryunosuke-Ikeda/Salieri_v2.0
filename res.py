@@ -38,9 +38,10 @@ def responce(text,flag,model,chat):
         f = open('txt/op.txt', 'r',encoding='UTF-8')
         t2 = f.read()
         choose=['・東京電機大学について','・人工知能研究室について','・私について']
-        file_name=cap.cap()
-        num=detection.test2(file_name)
-        #num="hoge"
+        #人数カウント物体検出
+        #file_name=cap.cap()
+        #num=detection.test2(file_name)
+        num="hoge"
         t=f"こんにちは！ {num}人のお客様！"
         res=t+t2
         return res,choose,flag,model,chat,pose,lang
